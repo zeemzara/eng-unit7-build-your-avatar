@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BUILD YOUR AVATAR! – Year 5 English</title>
+<style>
+:root{--bg1:#7fd1ff;--bg2:#c9a8ff;--card:#fff;--ink:#23224f;--line:#23224f;--soft:#eceeff;--btn:#fff;--acc:#ffb703;--ok:#22c55e;--pri:#6c5ce7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#1d1b4f;--bg2:#3a1f6b;--card:#2b2870;--ink:#f4f3ff;--line:#0d0b2e;--soft:#3a3690;--btn:#3a3690}}
+:root[data-theme="dark"]{--bg1:#1d1b4f;--bg2:#3a1f6b;--card:#2b2870;--ink:#f4f3ff;--line:#0d0b2e;--soft:#3a3690;--btn:#3a3690}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:#8fb4ff;background:linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed;color:var(--ink);font:700 18px/1.35 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+.wrap{max-width:980px;margin:auto;padding:12px 12px 90px;display:grid;gap:12px}
+header{text-align:center;color:#fff;text-shadow:3px 3px 0 var(--line),-1px -1px 0 var(--line),1px -1px 0 var(--line),-1px 1px 0 var(--line)}
+h1{margin:0;font-size:clamp(1.7rem,6.5vw,2.8rem);letter-spacing:1px}header p{margin:2px 0 0;font-size:1.05rem}
+h2{margin:0 0 8px;font-size:1.3rem}
+.card{background:var(--card);border:4px solid var(--line);border-radius:22px;box-shadow:0 6px 0 var(--line);padding:14px}
+.btn{font:inherit;font-weight:800;color:var(--ink);background:var(--btn);border:3px solid var(--line);border-radius:16px;padding:10px 12px;min-height:52px;box-shadow:0 4px 0 var(--line);cursor:pointer;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn[aria-pressed=true]{background:var(--acc);color:#23224f}
+.btn:disabled{opacity:.45}
+.btn:focus-visible{outline:4px solid var(--pri);outline-offset:2px}
+.pri{background:var(--pri);color:#fff}.go{background:var(--ok);color:#fff}.big{font-size:1.3rem;width:100%}
+.hud{display:grid;gap:8px}.hr{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bar{flex:1;height:20px;border:3px solid var(--line);border-radius:12px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb703,#ff6fa8);transition:width .4s}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tab{display:flex;flex-direction:column;align-items:center;font-size:.85rem;padding:8px 2px}.tab span{font-size:1.6rem;line-height:1.1}
+.build{display:grid;gap:12px}
+@media(min-width:760px){.build{grid-template-columns:minmax(300px,370px) 1fr;align-items:start}.stage{position:sticky;top:10px}}
+.av{background:linear-gradient(#bfeaff,#efe0ff);border:3px solid var(--line);border-radius:18px;padding:4px;color:#23224f}
+.av svg{display:block;margin:auto;width:100%;max-width:250px;max-height:42vh;height:auto}
+.avi{animation:fl 3s ease-in-out infinite}.pop{animation:pp .3s}
+@keyframes fl{50%{transform:translateY(-5px)}}@keyframes pp{50%{transform:scale(1.05)}}
+.bl{animation:bk 4.5s infinite;transform-box:fill-box;transform-origin:center}@keyframes bk{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.say{background:var(--soft);border-radius:14px;padding:10px 12px;margin:10px 0;font-size:1.05rem}
+.say b,.clue b.w,p b{color:var(--pri)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.row>.btn{flex:1}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cat{display:flex;flex-direction:column;align-items:center;font-size:.85rem;padding:6px 2px}.cat span{font-size:1.5rem}
+.hint{margin:10px 0 0;font-size:.95rem;opacity:.85}.gl{margin:12px 0 4px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.opt{font-size:1.1rem;text-transform:capitalize;min-height:58px}
+.sw{display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);vertical-align:-3px;margin-right:6px}
+#pop{pointer-events:none;position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translate(-50%,160%);transition:transform .25s;width:min(92vw,380px);z-index:9;text-align:center}
+#pop.show{transform:translate(-50%,0)}
+#pop div{background:var(--acc);color:#23224f;border:4px solid var(--line);border-radius:20px;box-shadow:0 5px 0 var(--line);padding:10px 14px}
+.big2{font-size:1.6rem;text-transform:capitalize}.say.fl2{background:var(--acc);color:#23224f}.say.fl2 b{color:#23224f}
+.cf{position:fixed;top:-30px;pointer-events:none;z-index:20;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.3}}
+#win{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:30;padding:16px;text-align:center}#win.show{display:flex}
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}@media(min-width:760px){.grid4{grid-template-columns:repeat(4,1fr)}}
+.pick{background:linear-gradient(#bfeaff,#efe0ff);color:#23224f;padding:6px}.pick svg{width:100%;height:auto;max-height:230px}
+.pick.okc{background:#bbf7d0}.pick.shake{animation:sh .4s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.clue{margin:6px 0;background:var(--soft);padding:8px 10px;border-radius:12px}
+.fb{font-size:1.2rem;margin-top:6px}
+.ctr{text-align:center}.timer{font-size:3.4rem;font-weight:900;color:var(--pri)}
+.slot{display:inline-block;min-width:92px;min-height:42px;padding:4px 10px;border-radius:10px;background:var(--soft);border-bottom:4px dashed var(--pri);text-align:center;cursor:pointer;text-transform:capitalize;line-height:1.5}
+.slot.ok{background:#bbf7d0;border-color:#22c55e;color:#14532d}.slot.no{background:#fecaca;border-color:#ef4444;color:#7f1d1d}
+.fr p{font-size:1.2rem;line-height:2.5;margin:2px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.chip{font-size:1rem;min-height:46px;padding:6px 12px;text-transform:capitalize;color:#23224f}
+.tb{display:flex;gap:8px;margin-top:8px}.tb .btn{flex:1;padding:6px 4px}.side{display:flex;flex-direction:column;gap:6px}
+.gwrap{display:grid;gap:8px}.gcard{display:grid;grid-template-columns:36% 1fr;gap:8px;align-items:start}.gl2{display:flex;flex-direction:column;gap:6px}.gl2 .btn{width:100%}
+.chipbar{position:sticky;bottom:4px;z-index:5}.chipbar .chips{margin:8px 0 0}
+@media(max-width:759px){
+.wrap{padding:8px 8px 70px;gap:8px}#pop div{padding:5px 10px;font-size:.85rem}#pop{bottom:8px}.stage .say{min-height:0;overflow:auto}header p,#stars{display:none}h1{font-size:1.35rem}h2{font-size:1.05rem;margin:0 0 4px}
+.card{padding:8px;border-width:3px;border-radius:16px;box-shadow:0 4px 0 var(--line)}
+#lv,#st{font-size:.85rem;white-space:nowrap}
+.btn{min-height:44px;padding:6px 8px;border-radius:12px;box-shadow:0 3px 0 var(--line)}
+.tabs{gap:6px}.tab{min-height:48px;font-size:.75rem}.tab span{font-size:1.2rem}
+.build{gap:8px}.big{font-size:1.1rem}
+.stage{position:sticky;top:4px;z-index:5;display:grid;grid-template-columns:40% 1fr;gap:6px 8px}
+.stage .av svg{max-height:27vh;width:auto;max-width:100%}.stage .say{margin:0;font-size:.85rem;padding:6px 8px;flex:1}.stage .tb{grid-column:1/3;margin:0;gap:5px}.tb .btn{font-size:.78rem}
+.cats{grid-template-columns:repeat(6,1fr);gap:4px}.cat{font-size:.65rem;padding:2px 0;min-height:48px}.cat span{font-size:1.2rem}
+.opts{grid-template-columns:repeat(3,1fr);gap:6px}.opt{min-height:46px;font-size:.95rem;padding:4px}.gl{margin:6px 0 2px;font-size:.8rem}
+.stick{position:sticky;top:4px;z-index:5}.stick .fb{display:none}.clue{font-size:.9rem;margin:3px 0;padding:4px 8px}.grid4{gap:8px}.pick svg{max-height:21vh}
+.gcard .av svg{max-height:24vh;width:auto;max-width:100%}.fr p{font-size:.9rem;line-height:2.15;margin:0}.slot{min-width:56px;min-height:32px;padding:2px 6px}.fb{font-size:.9rem}
+.chip{min-height:38px;font-size:.85rem;padding:4px 8px}.chips{gap:6px}.chipbar .chips{margin:6px 0 0}
+.timer{font-size:2.4rem}.ctr .av svg{max-height:28vh}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🎮 BUILD YOUR AVATAR!</h1><p>Create a character and describe what they look like!</p></header>
+<div class="card hud hr"><b id="lv"></b><span id="stars"></span><div class="bar"><i id="xb"></i></div><b id="st"></b></div>
+<nav class="tabs" id="tabs"></nav>
+<main id="view"></main>
+</div>
+<div id="pop" role="status" aria-live="polite"></div>
+<div id="win"><div class="card"><div style="font-size:4.5rem">🏆</div><h2>MASTER DESCRIBER!</h2><p>You can describe a person!</p><button class="btn go big" data-a="cw">Keep playing</button></div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],pick=a=>a[Math.random()*a.length|0],cap=s=>s[0].toUpperCase()+s.slice(1);
+const ALL={height:['tall','short','average height'],build:['overweight','average build','slim'],hlen:['long','short','bald'],htex:['curly','spiky','straight'],hcol:['black','grey','dark brown','light brown','red','blonde'],face:['round','square','thin'],eyes:['blue','brown','green','grey'],ex:['glasses','beard','sunglasses','moustache']};
+const CATS=[['hb','📏','Height & Build',['height','Height'],['build','Build']],['hs','💇','Hair style',['hlen','Length'],['htex','Style']],['hc','🎨','Hair colour',['hcol','']],['fc','🙂','Face',['face','']],['ey','👀','Eyes',['eyes','']],['ot','✨','Other features',['ex','']]];
+const CC={hb:'#ffd6a5',hs:'#caffbf',hc:'#fdffb6',fc:'#9bf6ff',ey:'#a0c4ff',ot:'#ffc6ff'};
+const HC={black:'#2b2230',grey:'#a9a9b8','dark brown':'#4e2f1f','light brown':'#a8703f',red:'#c8372d',blonde:'#f2cb59'};
+const EC={blue:'#3b82f6',brown:'#7a4520',green:'#22a55b',grey:'#8e99a8'};
+const DEF={'height:tall':'Tall = a lot of height.','height:short':'Short = not tall.','height:average height':'Average height = not tall, not short.','build:overweight':'Overweight = a big, heavy body.','build:average build':'Average build = a normal body shape.','build:slim':'Slim = a thin, light body.','hlen:long':'Long hair = hair past the shoulders.','hlen:short':'Short hair = hair close to the head.','hlen:bald':'Bald = no hair on the head.','htex:curly':'Curly = hair with curls.','htex:spiky':'Spiky = hair that points up.','htex:straight':'Straight = hair with no curls.','hcol:black':'Black = very dark hair.','hcol:grey':'Grey = the colour of a cloud.','hcol:dark brown':'Dark brown = a deep chocolate colour.','hcol:light brown':'Light brown = a soft sandy colour.','hcol:red':'Red = the colour of a tomato.','hcol:blonde':'Blonde = light yellow hair.','face:round':'Round = like a circle.','face:square':'Square = like a box with corners.','face:thin':'Thin = narrow, not wide.','eyes:blue':'Blue = the colour of the sky.','eyes:brown':'Brown = the colour of chocolate.','eyes:green':'Green = the colour of grass.','eyes:grey':'Grey = the colour of a cloud.','ex:glasses':'Glasses = you wear them to see better.','ex:beard':'Beard = hair on the chin and cheeks.','ex:sunglasses':'Sunglasses = dark glasses for the sun.','ex:moustache':'Moustache = hair above the lip.'};
+const SHORT={hb:'Body',hs:'Hair',hc:'Colour',fc:'Face',ey:'Eyes',ot:'Extras'},GC=['hb','hb','hs','hs','hc','ey','fc','ot'];
+const LV=['Height & Build','Hair','Face & Eyes','Features','Master Describer'];
+const D0=()=>({g:'he',height:'average height',build:'average build',hlen:'short',htex:'straight',hcol:'black',face:'round',eyes:'brown',ex:[]});
+let A=D0(),cat='hb',xp=0,found={},touched={},created=0,wins=0,master=0,timer,pt,M={},G={},R={},uid=0;
+const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,''));u.lang='en-GB';u.rate=.85;speechSynthesis.speak(u)}catch(e){}};
+function rnd(o={}){const a={g:pick(['he','she']),height:pick(ALL.height),build:pick(ALL.build),hlen:pick(['long','short']),htex:pick(ALL.htex),hcol:pick(ALL.hcol),face:pick(ALL.face),eyes:pick(ALL.eyes),ex:[]};
+ if(!o.nobald&&Math.random()<.12)a.hlen='bald';if(o.ex||Math.random()<.4)a.ex=[pick(ALL.ex)];if(/^(beard|moustache)$/.test(a.ex[0]||''))a.g='he';return a}
+const B=x=>`<b>${x}</b>`;
+function parts(a){const P=a.g==='he'?'He':'She',av=x=>x.startsWith('average')?'of '+B(x):B(x),l=a.ex.map(x=>(/^(beard|moustache)$/.test(x)?'a ':'')+B(x));
+ return{P,hb:av(a.height)+' and '+av(a.build),hair:a.hlen==='bald'?`${P} is ${B('bald')}.`:`${P} has ${[a.hlen,a.htex,a.hcol].map(B).join(', ')} hair.`,face:`${P} has a ${B(a.face)} face.`,eyes:`${P} has ${B(a.eyes)} eyes.`,ex:l.length?`${P} has ${l.length>1?l.slice(0,-1).join(', ')+' and '+l.at(-1):l[0]}.`:''}}
+const lines=a=>{const p=parts(a);return[`My avatar is ${p.hb}.`,p.hair,p.face,p.eyes,p.ex].filter(Boolean)};
+function svg(a){const u='g'+uid++,H={tall:1.14,'average height':1,short:.84}[a.height],W={slim:.78,'average build':1,overweight:1.42}[a.build],cx=120,gy=318,legH=56*H,torH=62*H,legTop=gy-8-legH,torTop=legTop-torH+8,
+ fw={round:40,square:38,thin:29}[a.face],fh={round:38,square:36,thin:45}[a.face],cy=torTop-fh+4,sc=a.g==='he'?['#6aa5ff','#3b6fd8']:['#ff93bf','#e2488b'],tw=54*W,lw=15+(W-1)*10,aw=11+(W-1)*4,
+ hc=HC[a.hcol],bald=a.hlen==='bald',lg=a.hlen==='long',dx=fw*.48+2,ey=cy+3,bc=bald?'#4e2f1f':hc,fe=a.g==='she';
+ let bk='',fr='',bd='',mo='',gl='';
+ if(!bald){if(lg)bk+=`<rect x="${cx-fw-9}" y="${cy-fh-4}" width="${2*fw+18}" height="${fh+78}" rx="30" fill="${hc}"/>`;
+  const dome=`<path d="M${cx-fw-4} ${cy+2}C${cx-fw-8} ${cy-fh-22} ${cx+fw+8} ${cy-fh-22} ${cx+fw+4} ${cy+2}C${cx+fw-4} ${cy-fh*.45} ${cx-fw+4} ${cy-fh*.45} ${cx-fw-4} ${cy+2}Z" fill="${hc}"/>`;
+  if(a.htex==='curly'){let c='';for(let i=0;i<=10;i++){const t=Math.PI*(1+i/10);c+=`<circle cx="${cx+Math.cos(t)*(fw+4)}" cy="${cy-2+Math.sin(t)*(fh+3)}" r="12" fill="${hc}"/>`}fr=dome+c;if(lg)for(let k=0;k<4;k++)for(const s of[-1,1])bk+=`<circle cx="${cx+s*(fw+12)}" cy="${cy+8+k*18}" r="13" fill="${hc}"/>`}
+  else if(a.htex==='spiky'){let s='';for(let i=0;i<7;i++){const x=cx-fw+4+i*(2*fw-8)/6;s+=`<polygon points="${x-9},${cy-fh+4} ${x+(i-3)*2},${cy-fh-28-(i%2)*8} ${x+9},${cy-fh+4}" fill="${hc}"/>`}fr=s+dome}else fr=dome;
+  fr+=`<ellipse cx="${cx-fw*.35}" cy="${cy-fh-6}" rx="14" ry="5" fill="#fff" opacity=".28"/>`}
+ const face=a.face==='square'?`<rect x="${cx-fw}" y="${cy-fh}" width="${2*fw}" height="${2*fh}" rx="16" fill="url(#${u}s)" stroke="#d99a6c" stroke-width="2"/>`:`<ellipse cx="${cx}" cy="${cy}" rx="${fw}" ry="${fh}" fill="url(#${u}s)" stroke="#d99a6c" stroke-width="2"/>`;
+ const eye=x=>`<ellipse cx="${x}" cy="${ey}" rx="9" ry="10.5" fill="#fff" stroke="#23224f" stroke-width="1.5"/><circle cx="${x}" cy="${ey+1}" r="6.2" fill="${EC[a.eyes]}"/><circle cx="${x}" cy="${ey+1}" r="3" fill="#111"/><circle cx="${x+2.4}" cy="${ey-2}" r="2" fill="#fff"/>`+(fe?`<path d="M${x-8} ${ey-8}l-5-3M${x+8} ${ey-8}l5-3" stroke="#23224f" stroke-width="2.4" stroke-linecap="round"/>`:'');
+ const brow=x=>`<path d="M${x-9} ${ey-17}q9-5 18 0" stroke="${bald?'#6b4023':hc}" stroke-width="3.6" fill="none" stroke-linecap="round"/>`;
+ if(a.ex.includes('beard'))bd=`<path d="M${cx-fw+2} ${cy+10}Q${cx-fw-2} ${cy+fh+14} ${cx} ${cy+fh+14}Q${cx+fw+2} ${cy+fh+14} ${cx+fw-2} ${cy+10}Q${cx+fw*.5} ${cy+16} ${cx} ${cy+16}Q${cx-fw*.5} ${cy+16} ${cx-fw+2} ${cy+10}Z" fill="${bc}"/>`;
+ if(a.ex.includes('moustache'))mo=`<path d="M${cx} ${cy+13}q-6-7-17-2q-3 5 5 6q8-1 12-4zM${cx} ${cy+13}q6-7 17-2q3 5-5 6q-8-1-12-4z" fill="${bc}"/>`;
+ if(a.ex.includes('glasses'))gl=`<g fill="#fff" fill-opacity=".25" stroke="#23224f" stroke-width="3"><circle cx="${cx-dx}" cy="${ey}" r="12.5"/><circle cx="${cx+dx}" cy="${ey}" r="12.5"/><path d="M${cx-dx+12.5} ${ey}H${cx+dx-12.5}"/></g>`;
+ if(a.ex.includes('sunglasses'))gl=`<g fill="#1b1b2b"><rect x="${cx-dx-14}" y="${ey-10}" width="28" height="21" rx="8"/><rect x="${cx+dx-14}" y="${ey-10}" width="28" height="21" rx="8"/></g><path d="M${cx-dx+13} ${ey-3}H${cx+dx-13}" stroke="#1b1b2b" stroke-width="3"/><path d="M${cx-dx-9} ${ey-6}l7-2" stroke="#fff" stroke-width="2" opacity=".6"/>`;
+ const arm=x=>`<rect x="${x}" y="${torTop+8}" width="${aw}" height="${torH*.9}" rx="${aw/2}" fill="${sc[1]}"/><circle cx="${x+aw/2}" cy="${torTop+8+torH*.9}" r="${aw*.7}" fill="#f2c299"/>`;
+ return `<svg viewBox="0 0 240 330" role="img" aria-label="Avatar"><defs><radialGradient id="${u}s" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#ffe3c8"/><stop offset="1" stop-color="#eeb58a"/></radialGradient><linearGradient id="${u}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${sc[0]}"/><stop offset="1" stop-color="${sc[1]}"/></linearGradient></defs>
+<ellipse cx="120" cy="${gy+1}" rx="${56+tw*.3}" ry="9" fill="#23224f" opacity=".22"/>${bk}
+<rect x="${cx-lw-2}" y="${legTop}" width="${lw}" height="${legH}" rx="7" fill="#3b3f7a"/><rect x="${cx+2}" y="${legTop}" width="${lw}" height="${legH}" rx="7" fill="#3b3f7a"/>
+<ellipse cx="${cx-lw/2-2}" cy="${gy-4}" rx="${lw*.8}" ry="7" fill="#23224f"/><ellipse cx="${cx+lw/2+2}" cy="${gy-4}" rx="${lw*.8}" ry="7" fill="#23224f"/>
+${arm(cx-tw/2-aw+4)}${arm(cx+tw/2-4)}
+<rect x="${cx-tw/2}" y="${torTop}" width="${tw}" height="${torH}" rx="${18+W*6}" fill="url(#${u}t)"/><text x="${cx}" y="${torTop+torH*.62}" text-anchor="middle" font-size="${18*Math.min(W,1.2)}" fill="#fff" opacity=".85">★</text>
+<circle cx="${cx-fw}" cy="${cy+4}" r="7" fill="#f2c299"/><circle cx="${cx+fw}" cy="${cy+4}" r="7" fill="#f2c299"/>${face}
+<circle cx="${cx-fw*.62}" cy="${cy+17}" r="6" fill="#ff8fa3" opacity=".45"/><circle cx="${cx+fw*.62}" cy="${cy+17}" r="6" fill="#ff8fa3" opacity=".45"/>
+<path d="M${cx-3} ${cy+11}q3 4 6 0" stroke="#d68c63" stroke-width="2.5" fill="none" stroke-linecap="round"/>${bd}
+<path d="M${cx-10} ${cy+fh*.55}q10 10 20 0" stroke="#8a3a3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>${mo}
+<g class="bl">${eye(cx-dx)}${eye(cx+dx)}</g>${brow(cx-dx)}${brow(cx+dx)}${gl}${fr}</svg>`}
+const done=()=>[touched.hb,touched.hs||touched.hc,touched.fc||touched.ey,touched.ot].map(Boolean);
+function head(){const d=done(),i=d.indexOf(false),L=i<0?4:i;$('#lv').textContent=master?'🏆 MASTER DESCRIBER':`⭐ LEVEL ${L+1} · ${LV[L]}`;$('#stars').textContent=[0,1,2,3,4].map(i=>(i<4?d[i]:master)?'⭐':'☆').join('');$('#st').textContent=`⚡ ${xp} XP`;$('#xb').style.width=Math.min(100,xp)+'%'}
+const gain=n=>{xp+=n;head()};
+function burst(n=24){for(let i=0;i<n;i++){const s=document.createElement('span');s.className='cf';s.textContent=pick(['⭐','✨','🎉','💖','🔷','🟡']);s.style.cssText=`left:${Math.random()*100}vw;font-size:${16+Math.random()*18}px;animation-delay:${Math.random()*.4}s`;document.body.appendChild(s);setTimeout(()=>s.remove(),2400)}}
+function showPop(h,b,ms=3200){const p=$('#pop');p.innerHTML=`<div><b>${h}</b><br>${b}</div>`;p.classList.add('show');clearTimeout(pt);pt=setTimeout(()=>p.classList.remove('show'),ms)}
+function checkMaster(){if(!master&&done().every(Boolean)&&(created||wins)){master=1;xp+=25;head();$('#win').classList.add('show');burst(70)}}
+function vBuild(){$('#view').innerHTML=`<div class="build"><div class="card stage"><div class="av" id="av"><div class="avi" id="avi"></div></div><div class="side"><div class="say" id="say"></div><button class="btn go big" data-a="create">✅ CREATE!</button></div><div class="tb"><button class="btn" data-a="g" data-v="he">👦 He</button><button class="btn" data-a="g" data-v="she">👧 She</button><button class="btn" data-a="listen" aria-label="Listen">🔊</button><button class="btn" data-a="rand">🎲 Random</button><button class="btn" data-a="reset">↺ Reset</button></div></div><div class="card"><div class="cats" id="cats"></div><div id="opts"></div></div></div>`;opts();upd()}
+let ft;function flash(h){const e=$('#say');e.classList.add('fl2');e.innerHTML=h;clearTimeout(ft);ft=setTimeout(()=>{e.classList.remove('fl2');e.innerHTML=lines(A).join('<br>')},2600)}
+function upd(){$('#say').classList.remove('fl2');$('#avi').innerHTML=svg(A);const e=$('#av');e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop');$('#say').innerHTML=lines(A).join('<br>');$$('[data-a=g]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===A.g))}
+function opts(){$('#cats').innerHTML=CATS.map(c=>`<button class="btn cat" data-a="cat" data-c="${c[0]}" aria-label="${c[2]}" aria-pressed="${c[0]===cat}"><span>${c[1]}</span>${SHORT[c[0]]}</button>`).join('');
+ const C=CATS.find(c=>c[0]===cat);$('#opts').innerHTML=C.slice(3).map(([k,l])=>`<div class="gl">${l||C[2]}</div><div class="opts">${ALL[k].map(v=>{const on=k==='ex'?A.ex.includes(v):A[k]===v,sw=k==='hcol'?HC[v]:k==='eyes'?EC[v]:'';return`<button class="btn opt" data-a="sel" data-k="${k}" data-v="${v}" aria-pressed="${on}">${sw?`<i class="sw" style="background:${sw}"></i>`:''}${v}</button>`}).join('')}</div>`).join('')}
+function sel(k,v){const c=CATS.find(c=>c.slice(3).some(g=>g[0]===k))[0],key=k+':'+v,b4=done().filter(Boolean).length;let on=1;
+ if(k==='ex'){const i=A.ex.indexOf(v);if(i>=0){A.ex.splice(i,1);on=0}else{if(v==='glasses')A.ex=A.ex.filter(x=>x!=='sunglasses');if(v==='sunglasses')A.ex=A.ex.filter(x=>x!=='glasses');A.ex.push(v)}}
+ else{A[k]=v;if((k==='htex'||k==='hcol')&&A.hlen==='bald')A.hlen='short'}
+ touched[c]=1;upd();opts();say(v);const lu=done().filter(Boolean).length>b4,nw=on&&!found[key];
+ if(nw){found[key]=1;gain(5);burst(16)}else head();
+ if(nw||lu)flash(`<b>${nw?'✨ NEW WORD!':'⭐ LEVEL UP!'}</b><br>`+(nw?`<span class="big2">${v}</span><br>${DEF[key]}`:'')+(nw&&lu?'<br>⭐ LEVEL UP!':''))}
+function create(){created=1;say(lines(A).join(' '));burst(40);gain(10);flash(`<b>🎉 AVATAR UNLOCKED!</b><br>${done().every(Boolean)?'Great describing!':'Try more buttons to level up!'}`);checkMaster()}
+const clues=t=>{const p=parts(t);return[`${p.P} is ${p.hb}.`,p.hair,p.eyes,p.ex||p.face]};
+function newMys(){const t=rnd({nobald:1}),ks=['height','build','hlen','htex','hcol','eyes'].concat(t.ex.length?[]:['face']),o=[t],s=new Set([JSON.stringify(t)]);
+ while(o.length<4){const d={...t,ex:[...t.ex]};[...ks].sort(()=>Math.random()-.5).slice(0,2+(Math.random()<.4)).forEach(k=>d[k]=pick(ALL[k].filter(x=>x!==t[k]&&x!=='bald')));const j=JSON.stringify(d);if(!s.has(j)){s.add(j);o.push(d)}}
+ M={t,o:o.sort(()=>Math.random()-.5),c:1,bad:[],ok:0,msg:'Who is it? Tap the avatar!'}}
+function vMys(){const cl=clues(M.t);$('#view').innerHTML=`<div class="card stick"><h2>🕵️ MYSTERY AVATAR</h2>${cl.slice(0,M.c).map((c,i)=>`<p class="clue"><b>CLUE ${i+1}</b> ${c}</p>`).join('')}<div class="row">${M.c<4&&!M.ok?'<button class="btn pri" data-a="nc">👀 Show next clue</button>':''}<button class="btn" data-a="sp">🔊 Listen</button>${M.ok?'<button class="btn go" data-a="nm">Next mystery ▶</button>':''}</div><div class="fb">${M.msg}</div></div><div class="grid4">${M.o.map((o,i)=>`<button class="btn pick ${M.ok&&o===M.t?'okc':''} ${M.sh===i?'shake':''}" data-a="mp" data-i="${i}" ${M.bad.includes(i)||M.ok?'disabled':''}>${svg(o)}<b>${'ABCD'[i]}</b></button>`).join('')}</div>`;M.sh=-1}
+function newG(){const a=rnd({nobald:1,ex:1});G={a,v:Array(8).fill(null),r:Array(8).fill(null),e:[a.height,a.build,a.hlen,a.htex,a.hcol,a.eyes,a.face,a.ex[0]],m:'Tap words to fill the gaps. Look at the picture!',cat:'hb'}}
+const ph=w=>/^average/.test(w)?'of '+w:/^(beard|moustache)$/.test(w)?'a '+w:w;
+function vGuess(){const P=G.a.g==='he'?'He':'She';let i=0;const S=()=>{const k=i++,v=G.v[k];return`<span class="slot ${G.r[k]===1?'ok':G.r[k]===0?'no':''}" data-a="clr" data-i="${k}">${v?ph(v):'&nbsp;&nbsp;&nbsp;'}</span>`};
+ const f=[`${P} is ${S()} and ${S()}.`,`${P} has ${S()} ${S()} ${S()} hair.`,`${P} has ${S()} eyes.`,`${P} has a ${S()} face.`,`${P} has ${S()}.`],C=CATS.find(c=>c[0]===G.cat);
+ $('#view').innerHTML=`<div class="gwrap"><div class="card gcard"><div class="gl2"><div class="av"><div class="avi">${svg(G.a)}</div></div><button class="btn go" data-a="chk">Check ✅</button><button class="btn" data-a="ng">New avatar</button></div><div><div class="fr">${f.map(x=>`<p>${x}</p>`).join('')}</div><div class="fb">${G.m}</div></div></div><div class="card chipbar"><div class="cats">${CATS.map(c=>`<button class="btn cat" data-a="gcat" data-c="${c[0]}" aria-label="${c[2]}" aria-pressed="${c[0]===G.cat}"><span>${c[1]}</span>${SHORT[c[0]]}</button>`).join('')}</div><div class="chips">${C.slice(3).flatMap(([k])=>ALL[k]).map(w=>`<button class="btn chip" data-a="chip" data-w="${w}" style="background:${CC[G.cat]}">${w}</button>`).join('')}</div></div></div>`}
+function vRand(){$('#view').innerHTML=`<div class="card ctr"><h2>🎲 RANDOM AVATAR</h2>${R.a?`<div class="av"><div class="avi">${svg(R.a)}</div></div><div id="tw" ${R.rv?'hidden':''}><p>🤔 Can you describe this person?</p><div class="timer" id="tm">${R.t}</div><button class="btn" data-a="rv">Show answer now</button></div><div class="say" id="rv" ${R.rv?'':'hidden'} style="text-align:left">${lines(R.a).join('<br>')}</div><div class="row"><button class="btn" data-a="sp2">🔊 Listen</button><button class="btn" data-a="edit">✏️ Edit in Build</button></div>`:'<p>Look at a surprise avatar for 10 seconds, then describe it!</p>'}<button class="btn pri big" data-a="rand">🎲 RANDOM AVATAR</button></div>`}
+function rollR(){clearInterval(timer);R={a:rnd(),t:10,rv:0};vRand();timer=setInterval(()=>{R.t--;if($('#tm'))$('#tm').textContent=R.t;if(R.t<=0)reveal()},1000)}
+function reveal(){clearInterval(timer);R.rv=1;if($('#tw')){$('#tw').hidden=true;$('#rv').hidden=false}say(lines(R.a).join(' '));gain(5)}
+function setMode(m){clearInterval(timer);$$('.tab').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));({build:vBuild,mys:()=>{newMys();vMys()},gue:()=>{newG();vGuess()},rand:()=>{R={};vRand()}})[m]()}
+const act={
+tab:d=>setMode(d.m),cat:d=>{cat=d.c;opts()},sel:d=>sel(d.k,d.v),g:d=>{A.g=d.v;upd()},create,rand:()=>{setMode('rand');rollR()},reset:()=>{A=D0();upd();opts()},listen:()=>say(lines(A).join(' ')),
+nc:()=>{M.c++;vMys()},sp:()=>say(clues(M.t)[M.c-1]),nm:()=>{newMys();vMys()},
+mp:d=>{const i=+d.i;if(M.ok)return;if(M.o[i]===M.t){M.ok=1;const p=Math.max(10,30-5*(M.c-1));M.msg=`✅ CORRECT! +${p} XP`;showPop('✅ CORRECT!',`+${p} XP`,2200);gain(p);wins++;burst(50);checkMaster()}else{M.bad.push(i);M.sh=i;M.msg='❌ TRY AGAIN!';showPop('❌ TRY AGAIN!','Read the clues again.',1600)}vMys()},
+chip:d=>{const i=G.v.indexOf(null);say(d.w);if(i<0)return;G.v[i]=d.w;G.r[i]=null;const n=G.v.indexOf(null);if(n>=0)G.cat=GC[n];vGuess()},gcat:d=>{G.cat=d.c;vGuess()},clr:d=>{G.v[+d.i]=null;G.r[+d.i]=null;vGuess()},ng:()=>{newG();vGuess()},
+chk:()=>{if(G.v.includes(null))G.m='Fill every gap first!';else{G.r=G.v.map((x,i)=>x===G.e[i]?1:0);const n=G.r.reduce((a,b)=>a+b,0);if(n===8){G.m='✅ CORRECT! You described the avatar! +20 XP';gain(20);wins++;burst(50);checkMaster()}else G.m=`❌ ${n} / 8 correct. Look at the picture again!`}vGuess()},
+rv:reveal,sp2:()=>say(lines(R.a).join(' ')),edit:()=>{A=JSON.parse(JSON.stringify(R.a));setMode('build')},cw:()=>$('#win').classList.remove('show')};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&act[b.dataset.a])act[b.dataset.a](b.dataset)});
+$('#tabs').innerHTML=[['build','🛠️','Build'],['mys','🕵️','Mystery'],['gue','🎮','Guess'],['rand','🎲','Random']].map(t=>`<button class="btn tab" data-a="tab" data-m="${t[0]}"><span>${t[1]}</span>${t[2]}</button>`).join('');
+head();setMode('build');
+</script>
+</body>
+</html>
